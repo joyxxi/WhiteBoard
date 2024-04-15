@@ -1,3 +1,7 @@
+package Model;
+
+import Model.Shape;
+
 import java.util.ArrayList;
 import java.util.List;
 

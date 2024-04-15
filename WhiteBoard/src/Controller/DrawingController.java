@@ -1,4 +1,8 @@
 // DrawingController.java
+import Model.*;
+import View.ToolboxView;
+import View.WhiteBoardView;
+
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -8,18 +12,18 @@ import java.awt.event.ActionListener;
 
 public class DrawingController {
     private WhiteboardModel model;
-    private WhiteboardView whiteboardView;
+    private WhiteBoardView whiteboardView;
     private ToolboxView toolboxView;
     private String currentTool;
 
-    public DrawingController(WhiteboardModel model, WhiteboardView whiteboardView, ToolboxView toolboxView) {
+    public DrawingController(WhiteboardModel model, WhiteBoardView whiteboardView, ToolboxView toolboxView) {
         this.model = model;
         this.whiteboardView = whiteboardView;
         this.toolboxView = toolboxView;
         this.currentTool = "Line"; // Default tool
 
         this.whiteboardView.addMouseListener(new DrawingAreaMouseListener());
-        this.toolboxView.addToolboxListener(new ToolboxListener());
+        this.toolboxView.addToolboxListener();
     }
 
     private class DrawingAreaMouseListener extends MouseAdapter {
