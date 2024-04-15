@@ -1,4 +1,4 @@
-// DrawingController.java
+package Controller;// Controller.DrawingController.java
 import Model.*;
 import View.ToolboxView;
 import View.WhiteBoardView;

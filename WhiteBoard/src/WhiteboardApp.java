@@ -1,3 +1,9 @@
+import Controller.DrawingController;
+import Model.WhiteboardModel;
+import View.MainFrame;
+import View.ToolboxView;
+import View.WhiteBoardView;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -5,7 +11,7 @@ public class WhiteboardApp {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             WhiteboardModel model = new WhiteboardModel();
-            WhiteboardView whiteboardView = new WhiteboardView(model);
+            WhiteBoardView whiteboardView = new WhiteBoardView(model);
             ToolboxView toolboxView = new ToolboxView();
             DrawingController controller = new DrawingController(model, whiteboardView, toolboxView);
 
