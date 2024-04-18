@@ -1,62 +1,82 @@
-package Controller;// Controller.DrawingController.java
+package Controller;
 import Model.*;
-import View.ToolboxView;
 import View.WhiteBoardView;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class DrawingController {
-    private WhiteboardModel model;
-    private WhiteBoardView whiteboardView;
-    private ToolboxView toolboxView;
-    private String currentTool;
+public class DrawingController implements ActionListener {
+  private WhiteboardModel model;
+  private WhiteBoardView view;
 
-    public DrawingController(WhiteboardModel model, WhiteBoardView whiteboardView, ToolboxView toolboxView) {
-        this.model = model;
-        this.whiteboardView = whiteboardView;
-        this.toolboxView = toolboxView;
-        this.currentTool = "Line"; // Default tool
+  public DrawingController(WhiteboardModel model, WhiteBoardView view) {
+    this.model = model;
+    this.view = view;
+    attachListeners();
+  }
 
-        this.whiteboardView.addMouseListener(new DrawingAreaMouseListener());
-        this.toolboxView.addToolboxListener();
+  private void attachListeners() {
+    view.addMouseListener(new MouseAdapter() {
+      /**
+       * {@inheritDoc}
+       *
+       * @param e
+       */
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        Point start = e.getPoint();
+        drawFixedSize(start);
+        view.repaint();
+      }
+    });
+  }
+
+  /**
+   * Update the model based on where the user clicked.
+   *
+   * @param start clicked starting point
+   */
+  public void drawFixedSize(Point start) {
+    Point end = new Point(start.x + 50, start.y);
+    ShapeType currentShape = model.getCurrentShapeType();
+    Shape shape;
+    shape = switch (currentShape) {
+      case Line -> new Line(Color.BLACK, start, end);
+      case Rectangle -> new Rectangle(Color.BLACK, start, 50, 20);
+      case Circle -> new Circle(Color.BLACK, start, 50);
+    };
+    model.addShape(shape);
+  }
+
+  /**
+   * Invoked when an action occurs.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    String command = e.getActionCommand();
+    switch (command) {
+      case "Line":
+        model.setCurrentShape(ShapeType.Line);
+        break;
+      case "Rectangle":
+        model.setCurrentShape(ShapeType.Rectangle);
+        break;
+      case "Circle":
+        model.setCurrentShape(ShapeType.Circle);
+        break;
+      case "Clear":
+        model.clear();
+        view.repaint();
+        break;
+      default:
+        break;
     }
-
-    private class DrawingAreaMouseListener extends MouseAdapter {
-        @Override
-        public void mousePressed(MouseEvent e) {
-            Point start = e.getPoint();
-            Shape shape;
-
-            switch (currentTool) {
-                case "Line":
-                    shape = new Line(Color.BLACK, start, start);
-                    break;
-                case "Rectangle":
-                    shape = new Rectangle(Color.BLACK, start, 0, 0);
-                    break;
-                case "Circle":
-                    shape = new Circle(Color.BLACK, start, 10);
-                    break;
-                default:
-                    shape = null;
-            }
-
-            if (shape != null) {
-                model.addShape(shape);
-            }
-        }
-
-    }
-
-    private class ToolboxListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            currentTool = e.getActionCommand();
-        }
-    }
+  }
 }
