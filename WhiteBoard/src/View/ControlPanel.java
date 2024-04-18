@@ -1,8 +1,8 @@
 package View;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 /**
  * A panel class with buttons to select drawing tools like line, rectangle, circle, and clear.

@@ -3,12 +3,8 @@ package View;
 import Controller.DrawingController;
 import Model.Shape;
 import Model.WhiteboardModel;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.*;
 
 /**
  * The class is responsible for rendering the shapes on the screen.
@@ -32,10 +28,6 @@ public class WhiteBoardView extends JPanel {
 //        repaint();
 //      }
 //    });
-  }
-
-  public void addDrawingMouseListener(MouseListener mouseListener) {
-    addMouseListener(mouseListener);
   }
 
   @Override

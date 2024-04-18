@@ -9,23 +9,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Interacts with model and view, listen to actions from views, updates the model and refreshes views.
+ */
 public class DrawingController implements ActionListener {
   private WhiteboardModel model;
   private WhiteBoardView view;
 
+  /**
+   * Constructor to initialize the model and view.
+   *
+   * @param model model
+   * @param view view
+   */
   public DrawingController(WhiteboardModel model, WhiteBoardView view) {
     this.model = model;
     this.view = view;
     attachListeners();
   }
 
+  /**
+   * Add mouse listener to the view, and perform action accordingly.
+   */
   private void attachListeners() {
     view.addMouseListener(new MouseAdapter() {
-      /**
-       * {@inheritDoc}
-       *
-       * @param e
-       */
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
