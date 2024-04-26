@@ -1,5 +1,6 @@
 package Controller;
 import Model.*;
+import View.PopUpView;
 import View.WhiteBoardView;
 
 import java.awt.Color;
@@ -37,7 +38,11 @@ public class DrawingController implements ActionListener {
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
         Point start = e.getPoint();
-        drawFixedSize(start);
+        if (model.getCurrentShapeType() == null) {
+          PopUpView.drawNotAllow(view);
+        } else {
+          drawFixedSize(start);
+        }
         view.repaint();
       }
     });
@@ -79,6 +84,7 @@ public class DrawingController implements ActionListener {
         model.setCurrentShape(ShapeType.Circle);
         break;
       case "Clear":
+        model.setShapeToNull();
         model.clear();
         view.repaint();
         break;

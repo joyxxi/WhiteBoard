@@ -10,50 +10,65 @@ import java.awt.*;
 import java.util.List;
 import static org.junit.Assert.*;
 
+/**
+ * Test class to test drawing controller.
+ */
 public class DrawingControllerTest {
-    private WhiteboardModel model;
-    private WhiteBoardView view;
-    private DrawingController controller;
+  private WhiteboardModel model;
+  private WhiteBoardView view;
+  private DrawingController controller;
 
-    @Before
-    public void setUp() {
-        model = new WhiteboardModel();
-        view = new WhiteBoardView(model);
-        controller = new DrawingController(model, view);
-    }
+  /**
+   * Initialize the model, view and controller before each test.
+   */
+  @Before
+  public void setUp() {
+    model = new WhiteboardModel();
+    view = new WhiteBoardView(model);
+    controller = new DrawingController(model, view);
+  }
 
-    @Test
-    public void testDrawLine() {
-        model.setCurrentShape(ShapeType.Line);
+  /**
+   * Test drawing line.
+   */
+  @Test
+  public void testDrawLine() {
+    model.setCurrentShape(ShapeType.Line);
 
-        Point startPoint = new Point(100, 100);
-        controller.drawFixedSize(startPoint);
-        List<Shape> shapes = model.getShapes();
+    Point startPoint = new Point(100, 100);
+    controller.drawFixedSize(startPoint);
+    List<Shape> shapes = model.getShapes();
 
-        assertEquals(1, shapes.size());
-        assertTrue(shapes.get(0) instanceof Line);
-    }
+    assertEquals(1, shapes.size());
+    assertTrue(shapes.get(0) instanceof Line);
+  }
 
-    @Test
-    public void testDrawRectangle() {
-        model.setCurrentShape(ShapeType.Rectangle);
+  /**
+   * Test drawing rectangle.
+   */
+  @Test
+  public void testDrawRectangle() {
+    model.setCurrentShape(ShapeType.Rectangle);
 
-        Point startPoint = new Point(200, 200);
-        controller.drawFixedSize(startPoint);
-        List<Shape> shapes = model.getShapes();
+    Point startPoint = new Point(200, 200);
+    controller.drawFixedSize(startPoint);
+    List<Shape> shapes = model.getShapes();
 
-        assertTrue("No shapes found", !shapes.isEmpty());
+    assertFalse("No shapes found", shapes.isEmpty());
 
-        assertEquals("Unexpected number of shapes", 1, shapes.size());
-    }
+    assertEquals("Unexpected number of shapes", 1, shapes.size());
+  }
 
-    @Test
-    public void testClearShapes() {
-        model.addShape(new Line(Color.BLACK, new Point(100, 100), new Point(150, 150)));
+  /**
+   * Test clearing all shapes.
+   */
+  @Test
+  public void testClearShapes() {
+    model.addShape(new Line(Color.BLACK, new Point(100, 100), new Point(150, 150)));
 
-        model.clear();
-        List<Shape> shapes = model.getShapes();
+    model.clear();
+    List<Shape> shapes = model.getShapes();
 
-        assertTrue(shapes.isEmpty());
-    }
+    assertTrue(shapes.isEmpty());
+  }
 }

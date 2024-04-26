@@ -20,14 +20,6 @@ public class WhiteBoardView extends JPanel {
   public WhiteBoardView(WhiteboardModel model) {
     this.model = model;
     this.setBackground(Color.WHITE);
-//    this.addMouseListener(new MouseAdapter() {
-//      @Override
-//      public void mouseClicked(MouseEvent e) {
-//        Point start = e.getPoint();
-//        controller.drawFixedSize(start);
-//        repaint();
-//      }
-//    });
   }
 
   @Override

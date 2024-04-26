@@ -20,14 +20,20 @@ public class WhiteboardModel {
     shapes = new ArrayList<>();
   }
 
+  /**
+   * Add shape to the shapes list.
+   *
+   * @param shape shape to be added.
+   */
   public void addShape(Shape shape) {
     shapes.add(shape);
   }
 
-  public void removeShape(Shape shape) {
-    shapes.remove(shape);
-  }
-
+  /**
+   * Get all shapes.
+   *
+   * @return list of shapes
+   */
   public List<Shape> getShapes() {
     return shapes;
   }
@@ -39,6 +45,13 @@ public class WhiteboardModel {
    */
   public void setCurrentShape(ShapeType shape) {
     this.currentShapeType = shape;
+  }
+
+  /**
+   * Set the current shape type to null.
+   */
+  public void setShapeToNull() {
+    this.currentShapeType = null;
   }
 
   /**
